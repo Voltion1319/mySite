@@ -5,6 +5,7 @@ class SiteController
 	
 	public function actionIndex()
 	{
+        $count = Db::getNewsCount();
 
 		$latestNews = array();
 		$latestNews = News::getLatestNews(3);

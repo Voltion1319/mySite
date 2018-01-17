@@ -13,20 +13,11 @@ class News
         $db = Db::getConnection();
         $newsList = array();
 
-        $sql = 'SELECT id, title, date, text FROM news '
-            . 'ORDER BY id DESC '
-            . 'LIMIT :count';
-
-        $query = $db->prepare($sql);
-
-        $query->bindValue(':count', $count, PDO::PARAM_INT);
-
-        $query->execute();
-
-        $newsList = $query->fetchAll(PDO::FETCH_ASSOC) ;
+        $newsList = Db::getLatestNews($count) ;
 
         return $newsList;
     }
+
 
 
 

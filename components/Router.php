@@ -20,22 +20,25 @@ class Router
         }
     }
 
+    /**
+     * Get URL and redirect
+    */
     public function run()
     {
-        // Получить строку запроса
+        // Get URL
         $uri = $this->getURI();
 
-        // Проверить наличие такого запроса в routes.php
-        foreach ($this->routes as $uriPattern => $path) {
+        // Check routes.php array
+        foreach ($this->routes as $uriPattern => $path)
+        {
 
-            // Сравниваем $uriPattern и $uri
-            if (preg_match("~$uriPattern~", $uri)) {
-
-                // Получаем внутренний путь из внешнего согласно правилу.
+            // Check $uriPattern and $uri
+            if (preg_match("~$uriPattern~", $uri))
+            {
+                // Get path
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
 
-                // Определить контроллер, action, параметры
-
+                // Identify controller, action
                 $segments = explode('/', $internalRoute);
 
                 $controllerName = array_shift($segments) . 'Controller';
@@ -45,22 +48,20 @@ class Router
 
                 $parameters = $segments;
 
-                // Подключить файл класса-контроллера
-                $controllerFile = ROOT . '/controllers/' .
-                    $controllerName . '.php';
+                // Include controller
+                $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
 
-                if (file_exists($controllerFile)) {
+                if (file_exists($controllerFile))
+                {
                     include_once($controllerFile);
                 }
 
-                // Создать объект, вызвать метод (т.е. action)
+                // Init. and call action
                 $controllerObject = new $controllerName;
-
-
                 $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 
-
-                if ($result != null) {
+                if ($result != null)
+                {
                     break;
                 }
             }

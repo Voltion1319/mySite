@@ -2,17 +2,22 @@
 
 class SiteController
 {
-	
-	public function actionIndex()
-	{
-        $count = Db::getNewsCount();
+    public function actionIndex($page = 1)
+    {
 
-		$latestNews = array();
-		$latestNews = News::getLatestNews(3);
+        $total = Db::getNewsCount();
 
-		require_once(ROOT.'/views/site/index.php');
+        $start = ($page-1)*News::SHOW_BY_DEFAULT; // calculate position to start display news
 
-		return true;
-	}
+        $latestNews = array();
+        $latestNews = News::getLatestNews($start);
+
+        $pagination = new Pagination($total, $page);
+
+        require_once(ROOT.'/views/site/index.php');
+
+
+        return true;
+    }
 
 }

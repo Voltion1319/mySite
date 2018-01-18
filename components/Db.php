@@ -122,18 +122,15 @@ class Db
     {
         $db = Db::getConnection();
 
-        $start = ($start-1)*$count; // calculate position to start display news
-
-        $params = array('start' => $start,
-                        'count' => $count);
-
-        $sql = "SELECT * FROM news
-                ORDER BY id DESC
-                LIMIT :start , :count";
+        $sql = "SELECT * FROM news 
+			ORDER BY id DESC
+			LIMIT :start , :count";
 
         $query = $db->prepare($sql);
 
-        $query->execute($params);
+        $query->bindValue(':start', $start, PDO::PARAM_INT);
+        $query->bindValue(':count', $count, PDO::PARAM_INT);
+
         $query->execute();
 
         $news = $query->fetchAll(PDO::FETCH_ASSOC) ;
@@ -231,6 +228,8 @@ class Db
 
         $query = $db->prepare($sql);
         $query->execute($params);
+
+        return true;
     }
 
 }

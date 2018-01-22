@@ -1,6 +1,5 @@
 <?php include ROOT.'/views/layouts/header.php'; ?>
 
-
 <table border="0" align="center" width="800">
     <caption><h2>Редактировать</h2></caption>
     <tr height="50">

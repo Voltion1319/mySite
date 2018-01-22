@@ -14,7 +14,7 @@
             <td align="center">
                 <form>
                     <textarea name="comment" id="comment" cols="40" rows="3"></textarea><br>
-                    <button type="submit" onclick="ajax_post();">Комментировать</button>
+                    <button type="button" onclick="ajax_post();">Комментировать</button>
                 </form>
             </td>
         </tr>
@@ -29,23 +29,22 @@
     </table>
 
 
-    <script language="JavaScript" type="text/javascript">
+    <script>
         function ajax_post()
         {
             var xhr = new XMLHttpRequest();
 
             var comment = document.getElementById("comment").value;
-            var url = "/news/addCommentAjax1/20";
+            var url = "/news/addCommentAjax/20";
             var body = "comment="+comment;
             xhr.open("POST", url, true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send(body);
+
             xhr.onreadystatechange = function()
             {
                 if(xhr.readyState == 4 && xhr.status==200)
                 {
                     var res = JSON.parse(xhr.responseText);
-                    alert("enter2");
                     for(text in res)
                     {
                         var parentEl = document.getElementById("table1");
@@ -57,8 +56,7 @@
                     }
                 }
             }
-
-
+            xhr.send(body);
         }
     </script>
 

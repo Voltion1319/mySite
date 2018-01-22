@@ -14,9 +14,9 @@ class NewsController
 
     public function actionAddCommentAjax($newsId)
     {
-        //$comment = trim(htmlspecialchars($_POST['comment']));
-        //echo "[f[ff[f[[[ff[f[ =  ".$newsId;
+        $comment = trim(htmlspecialchars($_POST['comment']));
+        Db::addComment($newsId, $comment);
         echo json_encode(Comment::getLastComment($newsId));
-
+        return true;
     }
 }

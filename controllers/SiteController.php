@@ -12,7 +12,7 @@ class SiteController
         $latestNews = array();
         $latestNews = News::getLatestNews($start);
 
-        $pagination = new Pagination($total, $page);
+        $pagination = new Pagination($total, $page, '/news');
 
         require_once(ROOT.'/views/site/index.php');
 

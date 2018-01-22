@@ -77,7 +77,7 @@ class Db
     /**
      * Return all news's comments by news_id
      */
-    public static function getCommentsNews($news_id)
+    public static function getNewsComments($news_id)
     {
         $db = Db::getConnection();
 
@@ -97,11 +97,11 @@ class Db
     /**
      * Return last news's comments by news_id to AJAX
      */
-    public static function getLastComment($news_id)
+    public static function getLastComment($newsId)
     {
         $db = Db::getConnection();
 
-        $params = array('id' => $news_id);
+        $params = array('id' => $newsId);
 
         $sql = "SELECT * FROM comments
                 WHERE news_id =:id
@@ -140,12 +140,12 @@ class Db
     /**
      * Add new comment
      */
-    public static function addComment($id, $comment)
+    public static function addComment($newsId, $commentText)
     {
         $db = Db::getConnection();
 
-        $params = array('id' => $id,
-                        'comment' => $comment);
+        $params = array('id' => $newsId,
+                        'comment' => $commentText);
 
         $sql = "INSERT INTO comments (id, text, news_id)
 			    VALUES (NULL,:comment, :id)";

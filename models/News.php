@@ -9,7 +9,6 @@ class News
      */
     public static function getLatestNews($start, $count = self::SHOW_BY_DEFAULT)
     {
-        $count = intval($count);
         $db = Db::getConnection();
         $newsList = array();
 
@@ -17,27 +16,35 @@ class News
 
         return $newsList;
     }
+    /**
+     * Returns news by id
+     */
+    public static function getNewsById($id)
+    {
+        $id = intval($id);
 
+        if ($id) {
+            $news = array();
 
+            $news = Db::getNewsById($id);
+            return $news;
+        }
+    }
 
+    public static function deleteNewsById($id)
+    {
+        Db::deleteNews($id);
+    }
 
+    public static function editNewsById($id, $title, $date, $text)
+    {
+        Db::editNews($id, $title, $date, $text);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public static function addNews($title, $date, $text)
+    {
+        Db::addNews($title, $date, $text);
+    }
 
 
 

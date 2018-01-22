@@ -200,9 +200,9 @@ class Db
         $db = Db::getConnection();
 
         $params = array('id' => $id,
-            'title' => $title,
-            'date' => $date,
-            'text' => $text);
+                        'title' => $title,
+                        'date' => $date,
+                        'text' => $text);
 
         $sql = "UPDATE news SET title =:title, 
 							    date =:date, 

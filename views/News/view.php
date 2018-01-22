@@ -14,7 +14,7 @@
             <td align="center">
                 <form>
                     <textarea name="comment" id="comment" cols="40" rows="3"></textarea><br>
-                    <button type="button" onclick="ajax_post();">Комментировать</button>
+                    <button type="button" id="btn-add-comm" data-id="<?=$news['id']?>" onclick="ajax_add_comment();">Комментировать</button>
                 </form>
             </td>
         </tr>
@@ -27,37 +27,5 @@
 
         <?php endforeach; ?>
     </table>
-
-
-    <script>
-        function ajax_post()
-        {
-            var xhr = new XMLHttpRequest();
-
-            var comment = document.getElementById("comment").value;
-            var url = "/news/addCommentAjax/20";
-            var body = "comment="+comment;
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onreadystatechange = function()
-            {
-                if(xhr.readyState == 4 && xhr.status==200)
-                {
-                    var res = JSON.parse(xhr.responseText);
-                    for(text in res)
-                    {
-                        var parentEl = document.getElementById("table1");
-                        var row = parentEl.insertRow(1);
-                        var cell1 = row.insertCell(0);
-                        cell1.innerHTML = res[text].text;
-                        cell1.ClassName = '';
-
-                    }
-                }
-            }
-            xhr.send(body);
-        }
-    </script>
 
 <?php include ROOT . '/views/layouts/footer.php'; ?>

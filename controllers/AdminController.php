@@ -18,12 +18,42 @@ class AdminController
         return true;
     }
 
-    public function actionEdit($newsId)
+    public function actionView($newsId)
     {
         $news = News::getNewsById($newsId);
 
-        require_once(ROOT . '/views/admin/edit.php');
+        require_once(ROOT . '/views/admin/view.php');
 
         return true;
     }
+
+    public function actionDelete($newsId)
+    {
+        News::deleteNewsById($newsId);
+        return true;
+    }
+
+    public function actionEdit($newsId)
+    {
+        $title = trim(htmlspecialchars($_POST['title']));
+        $text = trim(htmlspecialchars($_POST['text']));
+        $date = trim(htmlspecialchars($_POST['date']));
+
+        News::editNewsById($newsId, $title, $date, $text);
+
+        return true;
+    }
+
+    public function actionAdd()
+    {
+        $title = trim(htmlspecialchars($_POST['title']));
+        $text = trim(htmlspecialchars($_POST['text']));
+        $date = trim(htmlspecialchars($_POST['date']));
+
+        News::addNews($title, $date, $text);
+
+        echo json_encode(News::getLastNews());
+        return true;
+    }
+
 }

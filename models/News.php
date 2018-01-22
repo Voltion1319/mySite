@@ -34,6 +34,7 @@ class News
     public static function deleteNewsById($id)
     {
         Db::deleteNews($id);
+        return true;
     }
 
     public static function editNewsById($id, $title, $date, $text)
@@ -44,6 +45,12 @@ class News
     public static function addNews($title, $date, $text)
     {
         Db::addNews($title, $date, $text);
+    }
+
+    public static function getLastNews()
+    {
+        $news = Db::getLatestNews(1);
+        return $news;
     }
 
 

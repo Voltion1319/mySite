@@ -1,6 +1,6 @@
 <?php include ROOT.'/views/layouts/header.php'; ?>
 
-<table border="1" align="center" width="800">
+<table border="1" align="center" width="800" id = "news">
     <caption>
         <h2>
             Админ-панель
@@ -8,7 +8,6 @@
     </caption>
     <tr>
         <td colspan="4">
-            <form id = "addForm">
                 Заголовок<br>
                 <input type="text" id="title" size="80">
                 <br>Дата<br>
@@ -16,8 +15,7 @@
                 <br>Текст<br>
                 <textarea name="text" id="text" cols="80" rows="3"></textarea>
                 <br>
-                <button type="submit">Добавить</button>
-            </form>
+                <button type="button" onclick="ajax_add_news()">Добавить</button>
         </td>
     </tr>
 
@@ -30,7 +28,7 @@
             </a>
         </td>
         <td rowspan="2">
-            <a href="/adminNewsDetails.php?news_id=<?=$news['id']?>"><h3>Редактировать</h3></a>
+            <a href="/admin/view/<?=$news['id']?>"><h3>Редактировать</h3></a>
         </td>
     </tr>
     <tr height="50">

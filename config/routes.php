@@ -8,5 +8,5 @@ return array(
     'admin/edit/([0-9]+)' => 'admin/edit/$1',
     'admin/delete/([0-9]+)' => 'admin/delete/$1',
     'admin/add' => 'admin/add',
-    '' => 'site/index',
+    '^$' => 'site/index',
 );

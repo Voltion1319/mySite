@@ -112,7 +112,7 @@ function ajax_edit_news()
     {
         if(xhr.readyState == 4 && xhr.status==200)
         {
-            alert("Данные изменены");
+            alert("Данные изменены12345");
         }
     }
 }

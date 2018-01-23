@@ -31,7 +31,6 @@ class Router
         // Check routes.php array
         foreach ($this->routes as $uriPattern => $path)
         {
-
             // Check $uriPattern and $uri
             if (preg_match("~$uriPattern~", $uri))
             {
@@ -62,10 +61,11 @@ class Router
 
                 if ($result != null)
                 {
-                    break;
+                    return;
                 }
             }
         }
+        echo "END!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!end!!!!!!!!!!!!!!!!!!!!!!!!!!";
     }
 
 }

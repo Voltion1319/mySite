@@ -2,6 +2,9 @@
 
 class NewsController
 {
+    /**
+     * Display news in details
+     */
     public function actionView($newsId)
     {
         $news = News::getNewsById($newsId);
@@ -12,11 +15,17 @@ class NewsController
         return true;
     }
 
+    /**
+     * Add commemt to news by ajax
+     */
     public function actionAddCommentAjax($newsId)
     {
         $comment = trim(htmlspecialchars($_POST['comment']));
-        Db::addComment($newsId, $comment);
-        echo json_encode(Comment::getLastComment($newsId));
+        if($comment!="")
+        {
+            Db::addComment($newsId, $comment);
+            echo json_encode(Comment::getLastComment($newsId));
+        }
         return true;
     }
 }

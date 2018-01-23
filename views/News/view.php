@@ -12,10 +12,8 @@
         <caption><h2>Комментарии</h2></caption>
         <tr>
             <td align="center">
-                <form>
-                    <textarea name="comment" id="comment" cols="40" rows="3"></textarea><br>
-                    <button type="button" id="btn-add-comm" data-id="<?=$news['id']?>" onclick="ajax_add_comment();">Комментировать</button>
-                </form>
+                <textarea name="comment" id="comment" cols="40" rows="3"></textarea><br>
+                <button type="button" id="btn-add-comm" data-id="<?=$news['id']?>" onclick="ajax_add_comment();">Комментировать</button>
             </td>
         </tr>
 

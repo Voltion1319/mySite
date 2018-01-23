@@ -9,4 +9,5 @@ return array(
     'admin/delete/([0-9]+)' => 'admin/delete/$1',
     'admin/add' => 'admin/add',
     '^$' => 'site/index',
+    'error/404' => 'error/404',
 );

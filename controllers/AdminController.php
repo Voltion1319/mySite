@@ -2,6 +2,9 @@
 
 class AdminController
 {
+    /**
+     * display list of all news by pages with adding new news for admin
+     */
     public function actionIndex($page = 1)
     {
         $total = Db::getNewsCount();
@@ -17,7 +20,9 @@ class AdminController
 
         return true;
     }
-
+    /**
+     * display news to deleting or editing
+     */
     public function actionView($newsId)
     {
         $news = News::getNewsById($newsId);
@@ -27,12 +32,18 @@ class AdminController
         return true;
     }
 
+    /**
+     * action delete to ajax request
+     */
     public function actionDelete($newsId)
     {
         News::deleteNewsById($newsId);
         return true;
     }
 
+    /**
+     * action edit to ajax request
+     */
     public function actionEdit($newsId)
     {
         $title = trim(htmlspecialchars($_POST['title']));
@@ -44,6 +55,9 @@ class AdminController
         return true;
     }
 
+    /**
+     * action add to ajax request
+     */
     public function actionAdd()
     {
         $title = trim(htmlspecialchars($_POST['title']));

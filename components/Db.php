@@ -7,16 +7,23 @@ class Db
      */
     public static function getConnection()
     {
-        //get file with params to connect
-        $paramsPath = ROOT . '/config/db_params.php';
-        $params = include($paramsPath);
-        
+        try
+        {
+            //get file with params to connect
+            $paramsPath = ROOT . '/config/db_params.php';
+            $params = include($paramsPath);
 
-        $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
-        $db = new PDO($dsn, $params['user'], $params['password']);
-        $db->exec("set names utf8");
-        
-        return $db;
+
+            $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
+            $db = new PDO($dsn, $params['user'], $params['password']);
+            $db->exec("set names utf8");
+
+            return $db;
+        }
+        catch(PDOException $ex) // Check connection with db
+        {
+            die("У нас проблемы, зайдите позже");
+        }
     }
     /**
  * Return latest news list

@@ -10,14 +10,18 @@ function XMLHttpRequestInit(body, addr)
 
 function ajax_add_comment()
 {
-    var xhr = new XMLHttpRequest();
-
     var comment = document.getElementById("comment").value;
+    if(!comment)
+    {
+        alert("Вы не написали комментарий");
+        return;
+    }
+
+
     var id = document.getElementById("btn-add-comm").getAttribute("data-id");
     var url = "/news/addCommentAjax/"+id;
     var body = "comment="+comment;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    var xhr = XMLHttpRequestInit(body, url);
 
     xhr.onreadystatechange = function()
     {
@@ -34,7 +38,6 @@ function ajax_add_comment()
             }
         }
     }
-    xhr.send(body);
 }
 
 function ajax_add_news()
@@ -42,14 +45,16 @@ function ajax_add_news()
     var title = document.getElementById("title").value;
     var text = document.getElementById("text").value;
     var date = new Date(document.getElementById("date").value).getTime() / 1000;
-    // initialize xmlHttp request
-    //var xhr = XMLHttpRequestInit("title="+title+"&text="+text+"&date="+date, '/admin/add');
+    if(!title || !text || !date)
+    {
+        alert("Вы заполнили не все поля");
+        return;
+    }
 
-    var xhr = new XMLHttpRequest();
     var url = '/admin/add';
     var body = "title="+title+"&text="+text+"&date="+date;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // initialize xmlHttp request
+    var xhr = XMLHttpRequestInit(body, url);
 
     xhr.onreadystatechange = function()
     {
@@ -75,15 +80,15 @@ function ajax_add_news()
             }
         }
     }
-    xhr.send(body);
 }
-
-function toDateTime(secs) {
+//convert seconds to date
+function toDateTime(secs)
+{
     var t = new Date(1970, 0, 1);
     t.setSeconds(secs);
     return t.getFullYear()+"/"+(t.getMonth()+1)+"/"+t.getDate();
 }
-
+//ajax request o delete news
 function ajax_delete_news()
 {
     var id = document.getElementById("btn-delete-news").getAttribute("data-id");
@@ -99,20 +104,25 @@ function ajax_delete_news()
         }
     }
 }
-
+// ajax request to edit news by id
 function ajax_edit_news()
 {
     var id = document.getElementById("btn-edit-news").getAttribute("data-id");
     var title = document.getElementById("title").value;
     var text = document.getElementById("text").value;
     var date = new Date(document.getElementById("date").value).getTime() / 1000;
+    if(!title || !text || !date)
+    {
+        alert("Вы заполнили не все поля");
+        return;
+    }
     // initialize xmlHttp request
     var xhr = XMLHttpRequestInit("title="+title+"&text="+text+"&date="+date,'/admin/edit/'+id);
     xhr.onreadystatechange = function()
     {
         if(xhr.readyState == 4 && xhr.status==200)
         {
-            alert("Данные изменены12345");
+            alert("Данные изменены");
         }
     }
 }

@@ -30,23 +30,31 @@ class News
             return $news;
         }
     }
-
+    /**
+     * Action for deleting news
+     */
     public static function deleteNewsById($id)
     {
         Db::deleteNews($id);
         return true;
     }
-
+    /**
+     * Action for editing news
+     */
     public static function editNewsById($id, $title, $date, $text)
     {
         Db::editNews($id, $title, $date, $text);
     }
-
+    /**
+     * Action for add new news
+     */
     public static function addNews($title, $date, $text)
     {
         Db::addNews($title, $date, $text);
     }
-
+    /**
+     * Return last added news
+     */
     public static function getLastNews()
     {
         $news = Db::getLatestNews(1);

@@ -7,13 +7,9 @@ class AdminController
      */
     public function actionIndex($page = 1)
     {
-        $total = Db::getNewsCount();
+        $total = News::getNewsCount();
 
-        $start = ($page-1)*News::SHOW_BY_DEFAULT; // calculate position to start display news
-
-        $latestNews = array();
-        $latestNews = News::getLatestNews($start);
-
+        $latestNews = News::getLatestNews($page);
         $pagination = new Pagination($total, $page,'/admin');
 
         require_once(ROOT.'/views/admin/index.php');
@@ -28,10 +24,8 @@ class AdminController
         $news = News::getNewsById($newsId);
 
         require_once(ROOT . '/views/admin/view.php');
-
         return true;
     }
-
     /**
      * action delete to ajax request
      */
@@ -40,7 +34,6 @@ class AdminController
         News::deleteNewsById($newsId);
         return true;
     }
-
     /**
      * action edit to ajax request
      */
@@ -54,7 +47,6 @@ class AdminController
 
         return true;
     }
-
     /**
      * action add to ajax request
      */

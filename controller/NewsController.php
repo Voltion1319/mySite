@@ -23,7 +23,7 @@ class NewsController
         $comment = trim(htmlspecialchars($_POST['comment']));
         if($comment!="")
         {
-            Db::addComment($newsId, $comment);
+            Comment::addComment($newsId, $comment);
             echo json_encode(Comment::getLastComment($newsId));
         }
         return true;

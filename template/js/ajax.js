@@ -17,7 +17,6 @@ function ajax_add_comment()
         return;
     }
 
-
     var id = document.getElementById("btn-add-comm").getAttribute("data-id");
     var url = "/news/addCommentAjax/"+id;
     var body = "comment="+comment;

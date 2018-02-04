@@ -2,18 +2,13 @@
 
 class Comment
 {
-    const SHOW_BY_DEFAULT = 10;
-
+    const TABLE = "comments";
     /**
      * Return array of news's comments
      */
     public static function getNewsComments($newsId)
     {
-        $db = Db::getConnection();
-        $commentsList = array();
-
-        $commentsList = Db::getNewsComments($newsId);
-
+        $commentsList = DbQuery::getRows(self::TABLE,null, null, array('news_id'=>$newsId));
         return $commentsList;
     }
     /**
@@ -21,10 +16,7 @@ class Comment
      */
     public static function addComment($newsId, $commentText)
     {
-        $db = Db::getConnection();
-
-        $result = Db::addComment($newsId, $commentText);
-
+        $result = DbQuery::updateCreate(self::TABLE, array('news_id'=>$newsId, 'text'=>$commentText));
         return $result;
     }
     /**
@@ -32,10 +24,7 @@ class Comment
      */
     public static function getLastComment($newsId)
     {
-        $db = Db::getConnection();
-
-        $result = Db::getLastComment($newsId);
-
+        $result = DbQuery::getRows(self::TABLE,1, 0, array('news_id' => $newsId));
         return $result;
     }
 }

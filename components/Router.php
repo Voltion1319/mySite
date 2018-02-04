@@ -15,7 +15,8 @@ class Router
      */
     private function getURI()
     {
-        if (!empty($_SERVER['REQUEST_URI'])) {
+        if (!empty($_SERVER['REQUEST_URI']))
+        {
             return trim($_SERVER['REQUEST_URI'], '/');
         }
     }
@@ -48,7 +49,7 @@ class Router
                 $parameters = $segments;
 
                 // Include controller
-                $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+                $controllerFile = ROOT . '/controller/' . $controllerName . '.php';
 
                 if (file_exists($controllerFile))
                 {

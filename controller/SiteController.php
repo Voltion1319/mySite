@@ -7,10 +7,10 @@ class SiteController
      */
     public function actionIndex($page = 1)
     {
-        $total = News::getNewsCount();
-        $latestNews = News::getLatestNews($page);
+        $total = News::Count();
+        $latestNews = News::getLatest($page);
         $pagination = new Pagination($total, $page, '/news');
-        require_once(ROOT.'/views/site/index.php');
+        require_once(ROOT . '/view/site/index.php');
 
         return true;
     }

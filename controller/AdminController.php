@@ -7,13 +7,10 @@ class AdminController
      */
     public function actionIndex($page = 1)
     {
-        $total = News::getNewsCount();
-
-        $latestNews = News::getLatestNews($page);
+        $total = News::Count();
+        $latestNews = News::getLatest($page);
         $pagination = new Pagination($total, $page,'/admin');
-
-        require_once(ROOT.'/views/admin/index.php');
-
+        require_once(ROOT . '/view/admin/index.php');
         return true;
     }
     /**
@@ -21,9 +18,8 @@ class AdminController
      */
     public function actionView($newsId)
     {
-        $news = News::getNewsById($newsId);
-
-        require_once(ROOT . '/views/admin/view.php');
+        $news = News::getById($newsId);
+        require_once(ROOT . '/view/admin/view.php');
         return true;
     }
     /**
@@ -31,7 +27,7 @@ class AdminController
      */
     public function actionDelete($newsId)
     {
-        News::deleteNewsById($newsId);
+        News::delete($newsId);
         return true;
     }
     /**
@@ -39,12 +35,7 @@ class AdminController
      */
     public function actionEdit($newsId)
     {
-        $title = trim(htmlspecialchars($_POST['title']));
-        $text = trim(htmlspecialchars($_POST['text']));
-        $date = trim(htmlspecialchars($_POST['date']));
-
-        News::editNewsById($newsId, $title, $date, $text);
-
+        News::edit($newsId, $_POST['title'], $_POST['date'], $_POST['text']);
         return true;
     }
     /**
@@ -52,12 +43,7 @@ class AdminController
      */
     public function actionAdd()
     {
-        $title = trim(htmlspecialchars($_POST['title']));
-        $text = trim(htmlspecialchars($_POST['text']));
-        $date = trim(htmlspecialchars($_POST['date']));
-
-        News::addNews($title, $date, $text);
-
+        News::add($_POST['title'], $_POST['date'], $_POST['text']);
         echo json_encode(News::getLastNews());
         return true;
     }

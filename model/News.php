@@ -1,6 +1,6 @@
 <?php
 
-class News
+class News extends BaseModel
 {
     const SHOW_BY_DEFAULT = 5;
     const TABLE = "news";
@@ -8,7 +8,7 @@ class News
     /**
      * Return array of latest news
      */
-    public static function getLatestNews($page, $count = self::SHOW_BY_DEFAULT)
+    public static function getLatest($page, $count = self::SHOW_BY_DEFAULT)
     {
         $start = ($page-1)*self::SHOW_BY_DEFAULT; // calculate position to start display news
         $newsList = DbQuery::getRows(self::TABLE, $count, $start);
@@ -17,19 +17,15 @@ class News
     /**
      * Returns news by id
      */
-    public static function getNewsById($id)
+    public static function getById($id)
     {
-        $id = intval($id);
-        if ($id)
-        {
-            $news = DbQuery::getRow(self::TABLE, array('id'=>$id));
-            return $news;
-        }
+        $news = DbQuery::getRow(self::TABLE, array('id'=>$id));
+        return $news;
     }
     /**
      * Action for deleting news
      */
-    public static function deleteNewsById($id)
+    public static function delete($id)
     {
         DbQuery::delete(self::TABLE, array('id'=>$id));
         return true;
@@ -37,21 +33,25 @@ class News
     /**
      * Action for editing news
      */
-    public static function editNewsById($id, $title, $date, $text)
+    public static function edit($id, $title, $date, $text)
     {
-        DbQuery::updateCreate(self::TABLE, array('title'=>$title, 'date'=>$date, 'text'=>$text), $id);
+        $values = self::transformValues(array('title'=>$title, 'date'=>$date, 'text'=>$text));
+        DbQuery::updateCreate(self::TABLE, $values, $id);
         return true;
     }
     /**
      * Action for add new news
      */
-    public static function addNews($title, $date, $text)
+    public static function add($title, $date, $text)
     {
-        DbQuery::updateCreate(self::TABLE, array('title'=>$title, 'date'=>$date, 'text'=>$text));
+        $values = self::transformValues(array('title'=>$title, 'date'=>$date, 'text'=>$text));
+        DbQuery::updateCreate(self::TABLE, $values);
         return true;
     }
-
-    public static function getNewsCount()
+    /**
+     * Return count of all records in the table
+     */
+    public static function Count()
     {
         $count = DbQuery::getCountOfRecords(self::TABLE);
         return $count;
@@ -59,7 +59,7 @@ class News
     /**
      * Return last added news
      */
-    public static function getLastNews()
+    public static function getLast()
     {
         $news = DbQuery::getRows(self::TABLE, 1,0);
         return $news;

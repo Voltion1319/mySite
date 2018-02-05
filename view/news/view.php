@@ -1,4 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php'; ?>
+<?php include ROOT . '/view/layouts/header.php'; ?>
 
     <table border="0" align="center" width="800">
         <caption><h2> <?=$news['title']?> </h2></caption>
@@ -26,4 +26,4 @@
         <?php endforeach; ?>
     </table>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/view/layouts/footer.php'; ?>

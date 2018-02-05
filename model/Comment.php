@@ -14,17 +14,18 @@ class Comment
     /**
      * Add new comment
      */
-    public static function addComment($newsId, $commentText)
+    public static function add($newsId, $commentText)
     {
-        $result = DbQuery::updateCreate(self::TABLE, array('news_id'=>$newsId, 'text'=>$commentText));
+        $values = self::transformValues(array('news_id'=>$newsId, 'text'=>$commentText));
+        $result = DbQuery::updateCreate(self::TABLE, $values);
         return $result;
     }
     /**
      * Return last news's comment
      */
-    public static function getLastComment($newsId)
+    public static function getLast($newsId)
     {
-        $result = DbQuery::getRows(self::TABLE,1, 0, array('news_id' => $newsId));
+        $result = DbQuery::getRows(self::TABLE, 1, 0, array('news_id' => $newsId));
         return $result;
     }
 }

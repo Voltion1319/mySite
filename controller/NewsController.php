@@ -7,25 +7,18 @@ class NewsController
      */
     public function actionView($newsId)
     {
-        $news = News::getNewsById($newsId);
+        $news = News::getById($newsId);
         $comments = Comment::getNewsComments($newsId);
-
-        require_once(ROOT . '/views/news/view.php');
-
+        require_once(ROOT . '/view/news/view.php');
         return true;
     }
-
     /**
      * Add commemt to news by ajax
      */
     public function actionAddCommentAjax($newsId)
     {
-        $comment = trim(htmlspecialchars($_POST['comment']));
-        if($comment!="")
-        {
-            Comment::addComment($newsId, $comment);
-            echo json_encode(Comment::getLastComment($newsId));
-        }
+        Comment::add($newsId, $_POST['comment']);
+        echo json_encode(Comment::getLast($newsId));
         return true;
     }
 }

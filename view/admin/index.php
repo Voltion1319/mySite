@@ -1,4 +1,4 @@
-<?php include ROOT.'/views/layouts/header.php'; ?>
+<?php include ROOT . '/view/layouts/header.php'; ?>
 
 <table border="1" align="center" width="800" id = "news">
     <caption>
@@ -46,4 +46,4 @@
 
 </table>
 
-<?php include ROOT.'/views/layouts/footer.php'; ?>
+<?php include ROOT . '/view/layouts/footer.php'; ?>

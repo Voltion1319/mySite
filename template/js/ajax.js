@@ -99,7 +99,7 @@ function ajax_delete_news()
         if(xhr.readyState == 4 && xhr.status==200)
         {
             alert("Данные удалены");
-            window.location.href = '/admin/page-1';
+            window.location.href = '/admin/index';
         }
     }
 }

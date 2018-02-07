@@ -13,7 +13,7 @@ class NewsController
         return true;
     }
     /**
-     * Add commemt to news by ajax
+     * Add comment to news by ajax
      */
     public function actionAddCommentAjax($newsId)
     {

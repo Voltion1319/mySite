@@ -7,9 +7,8 @@ class AdminController
      */
     public function actionIndex($page = 1)
     {
-        $total = News::Count();
         $latestNews = News::getLatest($page);
-        $pagination = new Pagination($total, $page,'/admin');
+        $pagination = new Pagination(News::Count(), $page,'/admin/index');
         require_once(ROOT . '/view/admin/index.php');
         return true;
     }
@@ -44,7 +43,7 @@ class AdminController
     public function actionAdd()
     {
         News::add($_POST['title'], $_POST['date'], $_POST['text']);
-        echo json_encode(News::getLastNews());
+        echo json_encode(News::getLast());
         return true;
     }
 

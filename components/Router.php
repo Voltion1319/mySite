@@ -2,71 +2,59 @@
 
 class Router
 {
-    private $routes;
-
-    public function __construct()
-    {
-        $routesPath = ROOT . '/config/routes.php';
-        $this->routes = include($routesPath);
-    }
-
-    /**
-     * Returns request string
-     */
     private function getURI()
     {
-        if (!empty($_SERVER['REQUEST_URI']))
-        {
+        if(!empty($_SERVER['REQUEST_URI']))
             return trim($_SERVER['REQUEST_URI'], '/');
-        }
     }
 
-    /**
-     * Get URL and redirect
-    */
+    private function buildController($name)
+    {
+        return ucfirst($name)."Controller";
+    }
+    private function buildAction($name)
+    {
+        return "action".ucfirst($name);
+    }
+    private function controllerFile($name)
+    {
+        return ROOT."/controller/".$name.".php";
+    }
+
     public function run()
     {
-        // Get URL
+        $controller = 'site';
+        $action = 'index';
+        $params = array();
+
         $uri = $this->getURI();
-
-        // Check routes.php array
-        foreach ($this->routes as $uriPattern => $path)
+        $parts = explode('/',$uri);
+        if($parts[0]!="")
         {
-            // Check $uriPattern and $uri
-            if (preg_match("~$uriPattern~", $uri))
+            $controller = $parts[0];
+            unset($parts[0]);
+            if (isset($parts[1]))
             {
-                // Get path
-                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-
-                // Identify controller, action
-                $segments = explode('/', $internalRoute);
-
-                $controllerName = array_shift($segments) . 'Controller';
-                $controllerName = ucfirst($controllerName);
-
-                $actionName = 'action' . ucfirst(array_shift($segments));
-
-                $parameters = $segments;
-
-                // Include controller
-                $controllerFile = ROOT . '/controller/' . $controllerName . '.php';
-
-                if (file_exists($controllerFile))
+                $action = $parts[1];
+                unset($parts[1]);
+                if (isset($parts[2]))
                 {
-                    include_once($controllerFile);
+                    $params = $parts;
                 }
-
-                // Init. and call action
-                $controllerObject = new $controllerName;
-                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
-
-                if ($result != null)
-                {
-                    return;
-                }
+            }
+        }
+        $controller = $this->buildController($controller);
+        $action = $this->buildAction($action);
+        if (file_exists($this->controllerFile($controller)))
+        {
+            require_once($this->controllerFile($controller));
+            $controller = new $controller;
+            if(method_exists($controller,$action))
+            {
+                call_user_func_array(array($controller, $action), $params);
+                return;
             }
         }
         header("Location:/error/404");
     }
-
 }

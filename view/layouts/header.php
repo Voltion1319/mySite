@@ -9,7 +9,7 @@
     <table align="center" border="0">
         <tr height="50">
             <td><a href="/"><h3>Главная</h3></a></td>
-            <td><a href="/admin/page-1"><h3>Админ-Панель</h3></a></td>
+            <td><a href="/admin/index/"><h3>Админ-Панель</h3></a></td>
         </tr>
     </table>
                 

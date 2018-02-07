@@ -23,7 +23,7 @@
     <tr>
         <td rowspan="2"><?=date('Y/m/d', $news['date'])?></td>
         <td>
-            <a href="/news/<?=$news['id']?>">
+            <a href="/news/view/<?=$news['id']?>">
                 <h3><?=$news['title']?></h3>
             </a>
         </td>

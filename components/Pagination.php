@@ -33,7 +33,7 @@ class Pagination
 
         for($numberOfPage=1; $numberOfPage<=$countOfPages; $numberOfPage++)//display numbs of pages
         {
-            echo '<a href="'.$url.'/page-'.$numberOfPage.'">';
+            echo '<a href="'.$url.'/'.$numberOfPage.'">';
             if($numberOfPage==$currentPage)//show current page
                 echo '['.$numberOfPage.']';
             else

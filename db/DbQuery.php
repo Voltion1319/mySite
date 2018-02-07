@@ -34,7 +34,9 @@ class DbQuery implements DbInterface
         $query->execute($params);
         return $query;
     }
-
+    /**
+     * Update or add record to db
+     */
     public static function updateCreate($table, $params, $id = null)
     {
         $result = null;
@@ -45,6 +47,9 @@ class DbQuery implements DbInterface
         return $result;
     }
 
+    /**
+     * Add new record to db
+     */
     private static function create($table, $params)
     {
         $fields = "";
@@ -59,12 +64,13 @@ class DbQuery implements DbInterface
             $fields .= $name;
             $values .= ":" . $name;
         }
-
         $sql = "INSERT INTO ".$table." (".$fields.") VALUES (".$values.")";
         $result = self::prepareQuery($sql, $params);
         return $result;
     }
-
+    /**
+     * update record
+     */
     private static function update($table, $params, $id)
     {
         $values = "";
@@ -82,7 +88,9 @@ class DbQuery implements DbInterface
         $result = self::prepareQuery($sql, $params);
         return $result;
     }
-
+    /**
+     * Return count of records
+     */
     public static function getCountOfRecords($table)
     {
         $sql = "SELECT COUNT(*) FROM ".$table;
@@ -90,14 +98,18 @@ class DbQuery implements DbInterface
         $result = $result->fetchAll(PDO::FETCH_ASSOC) ;
         return $result[0]['COUNT(*)'];
     }
-
+    /**
+     * Delete record
+     */
     public static function delete($table, $where)
     {
         $sql = "DELETE FROM ".$table." WHERE ".key($where)."=:".key($where);
         $result = self::prepareQuery($sql, $where);
         return $result;
     }
-
+    /**
+     * Return Records from table
+     */
     private static function getData($table, $count = null, $start = 0, $where = null)
     {
         $params = array();
@@ -117,14 +129,18 @@ class DbQuery implements DbInterface
         $result = self::prepareQuery($sql, $params);
         return $result;
     }
-
+    /**
+     * Return rows from table
+     */
     public static function getRows($table, $count = null, $start = null, $where = null)
     {
         $result = self::getData($table, $count, $start, $where);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
-
+    /**
+     * Return row from table
+     */
     public static function getRow($table, $where)
     {
         $result = self::getData($table,null,null, $where);

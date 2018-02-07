@@ -1,7 +1,8 @@
 <?php
 
-class Comment
+class Comment extends BaseModel
 {
+
     const TABLE = "comments";
     /**
      * Return array of news's comments
@@ -16,7 +17,7 @@ class Comment
      */
     public static function add($newsId, $commentText)
     {
-        $values = self::transformValues(array('news_id'=>$newsId, 'text'=>$commentText));
+        $values = parent::transformValues(array('news_id'=>$newsId, 'text'=>$commentText));
         $result = DbQuery::updateCreate(self::TABLE, $values);
         return $result;
     }

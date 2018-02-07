@@ -35,7 +35,7 @@ class News extends BaseModel
      */
     public static function edit($id, $title, $date, $text)
     {
-        $values = self::transformValues(array('title'=>$title, 'date'=>$date, 'text'=>$text));
+        $values = array('title'=>$title, 'date'=>$date, 'text'=>$text);
         DbQuery::updateCreate(self::TABLE, $values, $id);
         return true;
     }
@@ -44,7 +44,7 @@ class News extends BaseModel
      */
     public static function add($title, $date, $text)
     {
-        $values = self::transformValues(array('title'=>$title, 'date'=>$date, 'text'=>$text));
+        $values = array('title'=>$title, 'date'=>$date, 'text'=>$text);
         DbQuery::updateCreate(self::TABLE, $values);
         return true;
     }
